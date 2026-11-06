@@ -1,0 +1,1364 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="Job Application Tracker PRO - A modern application for tracking job applications, interviews, offers, and career progress."
+    />
+
+    <meta name="theme-color" content="#0b1020" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <script
+      src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"
+      defer
+    ></script>
+
+    <script src="script.js" defer></script>
+
+    <title>Job Application Tracker PRO</title>
+  </head>
+
+  <body>
+    <!-- ======================================================
+         BACKGROUND EFFECTS
+    ====================================================== -->
+
+    <div class="background-grid" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow-one" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow-two" aria-hidden="true"></div>
+
+    <!-- ======================================================
+         MOBILE SIDEBAR TOGGLE
+    ====================================================== -->
+
+    <button
+      type="button"
+      class="sidebar-toggle"
+      id="sidebarToggle"
+      aria-label="Open navigation"
+      aria-controls="sidebar"
+      aria-expanded="false"
+    >
+      <i data-lucide="menu"></i>
+    </button>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" hidden></div>
+
+    <!-- ======================================================
+         APP LAYOUT
+    ====================================================== -->
+
+    <div class="app-layout">
+      <!-- ======================================================
+           SIDEBAR
+      ====================================================== -->
+
+      <aside class="sidebar" id="sidebar">
+        <!-- BRAND -->
+
+        <div class="sidebar-brand">
+          <div class="brand-icon">
+            <i data-lucide="briefcase-business"></i>
+          </div>
+
+          <div class="brand-content">
+            <h1>Job Application Tracker</h1>
+            <span class="brand-badge">PRO</span>
+
+            <p>Organize. Track. Get Hired.</p>
+          </div>
+        </div>
+
+        <!-- PROFILE -->
+
+        <div class="sidebar-profile">
+          <div class="profile-avatar">
+            <span>SJ</span>
+            <span class="profile-online"></span>
+          </div>
+
+          <div class="profile-info">
+            <p class="profile-name">Samuel Jahn</p>
+            <span class="profile-role">Frontend Developer</span>
+          </div>
+
+          <i data-lucide="chevron-down" class="profile-arrow"></i>
+        </div>
+
+        <!-- NAVIGATION -->
+
+        <nav class="sidebar-nav" aria-label="Main navigation">
+          <p class="sidebar-label">WORKSPACE</p>
+
+          <a href="#dashboard" class="nav-link active" aria-current="location">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Dashboard</span>
+          </a>
+
+          <a href="#applications" class="nav-link">
+            <i data-lucide="layers"></i>
+            <span>Applications</span>
+            <span class="nav-count" id="navApplicationsCount">4</span>
+          </a>
+
+          <a href="#interviews" class="nav-link">
+            <i data-lucide="calendar-days"></i>
+            <span>Interviews</span>
+            <span class="nav-count" id="navInterviewsCount">1</span>
+          </a>
+
+          <a href="#pipeline" class="nav-link">
+            <i data-lucide="columns-3"></i>
+            <span>Pipeline</span>
+          </a>
+
+          <a href="#analytics" class="nav-link">
+            <i data-lucide="chart-no-axes-column-increasing"></i>
+            <span>Analytics</span>
+          </a>
+        </nav>
+
+        <!-- SIDEBAR STATUS -->
+
+        <div class="sidebar-status">
+          <div class="sidebar-section-heading">
+            <i data-lucide="activity"></i>
+            <h2>KEY STATUS</h2>
+          </div>
+
+          <div class="sidebar-status-grid">
+            <div class="sidebar-status-card status-purple">
+              <div class="status-icon">
+                <i data-lucide="layers"></i>
+              </div>
+
+              <strong id="sidebarTotalCount">4</strong>
+              <span>Applications</span>
+            </div>
+
+            <div class="sidebar-status-card status-blue">
+              <div class="status-icon">
+                <i data-lucide="calendar-check"></i>
+              </div>
+
+              <strong id="sidebarInterviewCount">1</strong>
+              <span>Interviews</span>
+            </div>
+
+            <div class="sidebar-status-card status-green">
+              <div class="status-icon">
+                <i data-lucide="trophy"></i>
+              </div>
+
+              <strong id="sidebarOfferCount">1</strong>
+              <span>Offers</span>
+            </div>
+
+            <div class="sidebar-status-card status-red">
+              <div class="status-icon">
+                <i data-lucide="x-circle"></i>
+              </div>
+
+              <strong id="sidebarRejectedCount">1</strong>
+              <span>Rejected</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUICK ACTIONS -->
+
+        <div class="sidebar-actions">
+          <div class="sidebar-section-heading">
+            <i data-lucide="zap"></i>
+            <h2>QUICK ACTIONS</h2>
+          </div>
+
+          <button
+            type="button"
+            class="btn btn-primary sidebar-action-btn"
+            data-open-application-modal
+          >
+            <i data-lucide="plus"></i>
+            <span>Add Application</span>
+          </button>
+
+          <a href="#interviews" class="btn btn-outline sidebar-action-btn">
+            <i data-lucide="calendar-days"></i>
+            <span>View Interviews</span>
+          </a>
+
+          <a href="#pipeline" class="btn btn-outline sidebar-action-btn">
+            <i data-lucide="workflow"></i>
+            <span>View Pipeline</span>
+          </a>
+        </div>
+
+        <!-- SIDEBAR FOOTER -->
+
+        <div class="sidebar-footer">
+          <button
+            type="button"
+            class="sidebar-footer-btn theme-toggle"
+            id="themeBtn"
+            aria-label="Toggle color theme"
+            aria-pressed="false"
+          >
+            <i data-lucide="moon"></i>
+            <span>Toggle Theme</span>
+            <i data-lucide="sun" class="theme-sun"></i>
+          </button>
+
+          <div class="sidebar-footer-info">
+            <p>Job Application Tracker PRO</p>
+            <span>© <span id="currentYear">2026</span></span>
+          </div>
+        </div>
+
+        <!-- DECORATIVE GLOW -->
+
+        <div class="sidebar-decoration" aria-hidden="true">
+          <div class="sidebar-wave sidebar-wave-one"></div>
+          <div class="sidebar-wave sidebar-wave-two"></div>
+        </div>
+      </aside>
+
+      <!-- ======================================================
+           MAIN CONTENT
+      ====================================================== -->
+
+      <main class="main-content" id="dashboard">
+        <div class="dashboard-layout">
+          <!-- ==================================================
+               DASHBOARD MAIN COLUMN
+          ================================================== -->
+
+          <div class="dashboard-primary">
+            <!-- HERO SECTION -->
+
+            <section class="hero-section" aria-labelledby="heroTitle">
+              <div class="hero-glow" aria-hidden="true"></div>
+
+              <div class="hero-content">
+                <div class="hero-eyebrow">
+                  <span class="eyebrow-dot"></span>
+                  YOUR CAREER DASHBOARD
+                </div>
+
+                <h2 id="heroTitle">
+                  Track Every Application.
+                  <span>Land Your Next Role.</span>
+                </h2>
+
+                <p class="hero-description">
+                  Stay organized, never miss an opportunity, and turn more
+                  applications into interviews, offers, and your dream job.
+                </p>
+
+                <div class="hero-actions">
+                  <button
+                    type="button"
+                    class="btn btn-primary hero-primary-btn"
+                    data-open-application-modal
+                  >
+                    <i data-lucide="plus"></i>
+                    Add Application
+                  </button>
+
+                  <a href="#applications" class="btn btn-outline">
+                    <i data-lucide="list-check"></i>
+                    View Applications
+                  </a>
+                </div>
+              </div>
+
+              <!-- HERO ILLUSTRATION -->
+
+              <div class="hero-visual" aria-hidden="true">
+                <div class="hero-orbit hero-orbit-one"></div>
+                <div class="hero-orbit hero-orbit-two"></div>
+
+                <div class="hero-floating-icon floating-icon-one">
+                  <i data-lucide="briefcase-business"></i>
+                </div>
+
+                <div class="hero-floating-icon floating-icon-two">
+                  <i data-lucide="chart-no-axes-column-increasing"></i>
+                </div>
+
+                <div class="hero-floating-icon floating-icon-three">
+                  <i data-lucide="calendar-check"></i>
+                </div>
+
+                <div class="hero-laptop">
+                  <div class="laptop-screen">
+                    <div class="laptop-screen-content">
+                      <div class="laptop-success-icon">
+                        <i data-lucide="check"></i>
+                      </div>
+
+                      <p>Career Progress</p>
+                      <span>TRACKER PRO</span>
+                    </div>
+                  </div>
+
+                  <div class="laptop-base"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ==================================================
+                 STATISTICS
+            ================================================== -->
+
+            <section class="stats-section" aria-label="Application statistics">
+              <div class="stats-grid">
+                <!-- TOTAL APPLICATIONS -->
+
+                <article class="stat-card stat-card-purple">
+                  <div class="stat-card-top">
+                    <div class="stat-icon">
+                      <i data-lucide="layers"></i>
+                    </div>
+
+                    <span class="stat-label">Total Applications</span>
+                  </div>
+
+                  <strong class="stat-value" id="totalApplications">4</strong>
+
+                  <div class="stat-bottom">
+                    <span class="stat-description">
+                      All tracked applications
+                    </span>
+                  </div>
+
+                  <div class="stat-decoration"></div>
+                </article>
+
+                <!-- INTERVIEWS -->
+
+                <article class="stat-card stat-card-blue">
+                  <div class="stat-card-top">
+                    <div class="stat-icon">
+                      <i data-lucide="calendar-check"></i>
+                    </div>
+
+                    <span class="stat-label">Interviews</span>
+                  </div>
+
+                  <strong class="stat-value" id="totalInterviews">1</strong>
+
+                  <div class="stat-bottom">
+                    <span class="stat-description"> Interview stage </span>
+                  </div>
+
+                  <div class="stat-decoration"></div>
+                </article>
+
+                <!-- OFFERS -->
+
+                <article class="stat-card stat-card-green">
+                  <div class="stat-card-top">
+                    <div class="stat-icon">
+                      <i data-lucide="trophy"></i>
+                    </div>
+
+                    <span class="stat-label">Offers</span>
+                  </div>
+
+                  <strong class="stat-value" id="totalOffers">1</strong>
+
+                  <div class="stat-bottom">
+                    <span class="stat-description"> Offers received </span>
+                  </div>
+
+                  <div class="stat-decoration"></div>
+                </article>
+
+                <!-- REJECTIONS -->
+
+                <article class="stat-card stat-card-red">
+                  <div class="stat-card-top">
+                    <div class="stat-icon">
+                      <i data-lucide="x-circle"></i>
+                    </div>
+
+                    <span class="stat-label">Rejections</span>
+                  </div>
+
+                  <strong class="stat-value" id="totalRejected">1</strong>
+
+                  <div class="stat-bottom">
+                    <span class="stat-description"> Closed applications </span>
+                  </div>
+
+                  <div class="stat-decoration"></div>
+                </article>
+
+                <!-- RESPONSE RATE -->
+
+                <article class="stat-card stat-card-cyan">
+                  <div class="stat-card-top">
+                    <div class="stat-icon">
+                      <i data-lucide="target"></i>
+                    </div>
+
+                    <span class="stat-label">Response Rate</span>
+                  </div>
+
+                  <strong class="stat-value" id="responseRate">75%</strong>
+
+                  <div class="stat-bottom">
+                    <span class="stat-description">
+                      Applications with outcomes
+                    </span>
+                  </div>
+
+                  <div class="stat-decoration"></div>
+                </article>
+              </div>
+            </section>
+
+            <!-- ==================================================
+                 APPLICATIONS SECTION
+            ================================================== -->
+
+            <section
+              class="applications-section panel"
+              id="applications"
+              aria-labelledby="applicationsTitle"
+            >
+              <!-- SECTION HEADER -->
+
+              <div class="section-header">
+                <div class="section-title-group">
+                  <div class="section-title-icon">
+                    <i data-lucide="file-text"></i>
+                  </div>
+
+                  <div>
+                    <h2 id="applicationsTitle">Applications</h2>
+                    <p>Manage and track your job opportunities.</p>
+                  </div>
+                </div>
+
+                <span class="section-count" id="applicationsCount">4</span>
+              </div>
+
+              <!-- SEARCH / FILTER / SORT -->
+
+              <div class="applications-toolbar">
+                <div class="search-field">
+                  <i data-lucide="search"></i>
+
+                  <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search companies or roles..."
+                    aria-label="Search job applications"
+                    autocomplete="off"
+                  />
+                </div>
+
+                <div class="filter-group">
+                  <select
+                    id="statusFilter"
+                    class="filter-select"
+                    aria-label="Filter by status"
+                  >
+                    <option value="all">All Statuses</option>
+                    <option value="applied">Applied</option>
+                    <option value="interview">Interview</option>
+                    <option value="offer">Offer</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+
+                  <select
+                    id="priorityFilter"
+                    class="filter-select"
+                    aria-label="Filter by priority"
+                  >
+                    <option value="all">All Priorities</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                  </select>
+
+                  <select
+                    id="sortSelect"
+                    class="filter-select"
+                    aria-label="Sort applications"
+                  >
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="company-asc">Company A–Z</option>
+                    <option value="company-desc">Company Z–A</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- APPLICATIONS TABLE -->
+
+              <div class="table-wrapper">
+                <table class="applications-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Company</th>
+                      <th scope="col">Role</th>
+                      <th scope="col">Location</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Applied Date</th>
+                      <th scope="col">Priority</th>
+                      <th scope="col" class="actions-column">Actions</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="applicationsTableBody">
+                    <!--
+                      DEMO ROWS
+
+                      These sample rows are used for the initial UI.
+                      JavaScript will later render applications dynamically.
+                    -->
+
+                    <tr data-id="demo-1">
+                      <td>
+                        <div class="company-cell">
+                          <div class="company-avatar">G</div>
+
+                          <div class="company-details">
+                            <strong>Google</strong>
+                            <span>Technology</span>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <span class="role-name"> Frontend Engineer </span>
+                      </td>
+
+                      <td>
+                        <div class="location-cell">
+                          <i data-lucide="map-pin"></i>
+                          <span>Remote</span>
+                        </div>
+                      </td>
+
+                      <td>
+                        <span class="status-badge badge-interview">
+                          <i data-lucide="calendar-check"></i>
+                          Interview
+                        </span>
+                      </td>
+
+                      <td>
+                        <span class="date-cell">2026-11-01</span>
+                      </td>
+
+                      <td>
+                        <span class="priority-badge priority-high"> High </span>
+                      </td>
+
+                      <td>
+                        <div class="table-actions">
+                          <button
+                            type="button"
+                            class="table-action-btn edit-application-btn"
+                            data-id="demo-1"
+                            aria-label="Edit Google application"
+                          >
+                            <i data-lucide="pencil"></i>
+                          </button>
+
+                          <button
+                            type="button"
+                            class="table-action-btn delete-application-btn"
+                            data-id="demo-1"
+                            aria-label="Delete Google application"
+                          >
+                            <i data-lucide="trash-2"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr data-id="demo-2">
+                      <td>
+                        <div class="company-cell">
+                          <div class="company-avatar">O</div>
+
+                          <div class="company-details">
+                            <strong>OpenAI</strong>
+                            <span>Technology</span>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <span class="role-name">
+                          Junior JavaScript Developer
+                        </span>
+                      </td>
+
+                      <td>
+                        <div class="location-cell">
+                          <i data-lucide="map-pin"></i>
+                          <span>Remote</span>
+                        </div>
+                      </td>
+
+                      <td>
+                        <span class="status-badge badge-applied">
+                          <i data-lucide="send"></i>
+                          Applied
+                        </span>
+                      </td>
+
+                      <td>
+                        <span class="date-cell">2026-11-02</span>
+                      </td>
+
+                      <td>
+                        <span class="priority-badge priority-high"> High </span>
+                      </td>
+
+                      <td>
+                        <div class="table-actions">
+                          <button
+                            type="button"
+                            class="table-action-btn edit-application-btn"
+                            data-id="demo-2"
+                            aria-label="Edit OpenAI application"
+                          >
+                            <i data-lucide="pencil"></i>
+                          </button>
+
+                          <button
+                            type="button"
+                            class="table-action-btn delete-application-btn"
+                            data-id="demo-2"
+                            aria-label="Delete OpenAI application"
+                          >
+                            <i data-lucide="trash-2"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr data-id="demo-3">
+                      <td>
+                        <div class="company-cell">
+                          <div class="company-avatar">N</div>
+
+                          <div class="company-details">
+                            <strong>Netflix</strong>
+                            <span>Entertainment</span>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <span class="role-name"> Web Developer </span>
+                      </td>
+
+                      <td>
+                        <div class="location-cell">
+                          <i data-lucide="map-pin"></i>
+                          <span>Hybrid</span>
+                        </div>
+                      </td>
+
+                      <td>
+                        <span class="status-badge badge-offer">
+                          <i data-lucide="trophy"></i>
+                          Offer
+                        </span>
+                      </td>
+
+                      <td>
+                        <span class="date-cell">2026-10-25</span>
+                      </td>
+
+                      <td>
+                        <span class="priority-badge priority-medium">
+                          Medium
+                        </span>
+                      </td>
+
+                      <td>
+                        <div class="table-actions">
+                          <button
+                            type="button"
+                            class="table-action-btn edit-application-btn"
+                            data-id="demo-3"
+                            aria-label="Edit Netflix application"
+                          >
+                            <i data-lucide="pencil"></i>
+                          </button>
+
+                          <button
+                            type="button"
+                            class="table-action-btn delete-application-btn"
+                            data-id="demo-3"
+                            aria-label="Delete Netflix application"
+                          >
+                            <i data-lucide="trash-2"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr data-id="demo-4">
+                      <td>
+                        <div class="company-cell">
+                          <div class="company-avatar">M</div>
+
+                          <div class="company-details">
+                            <strong>Microsoft</strong>
+                            <span>Technology</span>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <span class="role-name">
+                          Junior Frontend Developer
+                        </span>
+                      </td>
+
+                      <td>
+                        <div class="location-cell">
+                          <i data-lucide="map-pin"></i>
+                          <span>On-site</span>
+                        </div>
+                      </td>
+
+                      <td>
+                        <span class="status-badge badge-rejected">
+                          <i data-lucide="x"></i>
+                          Rejected
+                        </span>
+                      </td>
+
+                      <td>
+                        <span class="date-cell">2026-10-20</span>
+                      </td>
+
+                      <td>
+                        <span class="priority-badge priority-low"> Low </span>
+                      </td>
+
+                      <td>
+                        <div class="table-actions">
+                          <button
+                            type="button"
+                            class="table-action-btn edit-application-btn"
+                            data-id="demo-4"
+                            aria-label="Edit Microsoft application"
+                          >
+                            <i data-lucide="pencil"></i>
+                          </button>
+
+                          <button
+                            type="button"
+                            class="table-action-btn delete-application-btn"
+                            data-id="demo-4"
+                            aria-label="Delete Microsoft application"
+                          >
+                            <i data-lucide="trash-2"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- EMPTY STATE -->
+
+              <div class="applications-empty" id="applicationsEmpty" hidden>
+                <div class="empty-icon">
+                  <i data-lucide="inbox"></i>
+                </div>
+
+                <h3>No applications found</h3>
+
+                <p>
+                  Add your first job application or adjust your search and
+                  filters.
+                </p>
+              </div>
+
+              <!-- TABLE FOOTER -->
+
+              <div class="table-footer">
+                <p id="applicationsResults">Showing 4 applications</p>
+
+                <button type="button" class="text-button" id="clearFiltersBtn">
+                  <i data-lucide="rotate-ccw"></i>
+                  Clear Filters
+                </button>
+              </div>
+            </section>
+
+            <!-- ==================================================
+                 APPLICATION PIPELINE
+            ================================================== -->
+
+            <section
+              class="pipeline-section panel"
+              id="pipeline"
+              aria-labelledby="pipelineTitle"
+            >
+              <div class="section-header">
+                <div class="section-title-group">
+                  <div class="section-title-icon">
+                    <i data-lucide="columns-3"></i>
+                  </div>
+
+                  <div>
+                    <h2 id="pipelineTitle">Application Pipeline</h2>
+                    <p>Track your progress through each stage.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pipeline-grid">
+                <!-- APPLIED -->
+
+                <div class="pipeline-column pipeline-applied">
+                  <div class="pipeline-column-header">
+                    <div class="pipeline-column-name">
+                      <i data-lucide="send"></i>
+                      <h3>Applied</h3>
+                    </div>
+
+                    <span class="pipeline-count" id="pipelineAppliedCount">
+                      1
+                    </span>
+                  </div>
+
+                  <div class="pipeline-items" id="pipelineApplied">
+                    <div class="pipeline-item">
+                      <span class="pipeline-company-icon">O</span>
+
+                      <div>
+                        <strong>OpenAI</strong>
+                        <span>Junior JavaScript Developer</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- INTERVIEW -->
+
+                <div class="pipeline-column pipeline-interview">
+                  <div class="pipeline-column-header">
+                    <div class="pipeline-column-name">
+                      <i data-lucide="calendar-check"></i>
+                      <h3>Interview</h3>
+                    </div>
+
+                    <span class="pipeline-count" id="pipelineInterviewCount">
+                      1
+                    </span>
+                  </div>
+
+                  <div class="pipeline-items" id="pipelineInterview">
+                    <div class="pipeline-item">
+                      <span class="pipeline-company-icon">G</span>
+
+                      <div>
+                        <strong>Google</strong>
+                        <span>Frontend Engineer</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- OFFER -->
+
+                <div class="pipeline-column pipeline-offer">
+                  <div class="pipeline-column-header">
+                    <div class="pipeline-column-name">
+                      <i data-lucide="trophy"></i>
+                      <h3>Offer</h3>
+                    </div>
+
+                    <span class="pipeline-count" id="pipelineOfferCount">
+                      1
+                    </span>
+                  </div>
+
+                  <div class="pipeline-items" id="pipelineOffer">
+                    <div class="pipeline-item">
+                      <span class="pipeline-company-icon">N</span>
+
+                      <div>
+                        <strong>Netflix</strong>
+                        <span>Web Developer</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- REJECTED -->
+
+                <div class="pipeline-column pipeline-rejected">
+                  <div class="pipeline-column-header">
+                    <div class="pipeline-column-name">
+                      <i data-lucide="x-circle"></i>
+                      <h3>Rejected</h3>
+                    </div>
+
+                    <span class="pipeline-count" id="pipelineRejectedCount">
+                      1
+                    </span>
+                  </div>
+
+                  <div class="pipeline-items" id="pipelineRejected">
+                    <div class="pipeline-item">
+                      <span class="pipeline-company-icon">M</span>
+
+                      <div>
+                        <strong>Microsoft</strong>
+                        <span>Junior Frontend Developer</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- ==================================================
+               DASHBOARD RIGHT COLUMN
+          ================================================== -->
+
+          <aside class="dashboard-secondary">
+            <!-- ==================================================
+                 UPCOMING INTERVIEWS
+            ================================================== -->
+
+            <section
+              class="interviews-panel panel"
+              id="interviews"
+              aria-labelledby="interviewsTitle"
+            >
+              <div class="panel-heading">
+                <div class="panel-heading-title">
+                  <i data-lucide="calendar-days"></i>
+                  <h2 id="interviewsTitle">Upcoming Interviews</h2>
+                </div>
+
+                <span class="panel-tag">Preview</span>
+              </div>
+
+              <div class="interviews-list">
+                <div class="interview-item">
+                  <div class="interview-company-icon">G</div>
+
+                  <div class="interview-content">
+                    <strong>Google</strong>
+                    <span>Frontend Engineer</span>
+                    <small>Technical Interview</small>
+                  </div>
+
+                  <div class="interview-date">
+                    <strong>Nov 6</strong>
+                    <span>10:00 AM</span>
+                  </div>
+                </div>
+
+                <div class="interview-item">
+                  <div class="interview-company-icon">N</div>
+
+                  <div class="interview-content">
+                    <strong>Netflix</strong>
+                    <span>Web Developer</span>
+                    <small>Hiring Manager</small>
+                  </div>
+
+                  <div class="interview-date">
+                    <strong>Nov 9</strong>
+                    <span>2:00 PM</span>
+                  </div>
+                </div>
+
+                <div class="interview-item">
+                  <div class="interview-company-icon">S</div>
+
+                  <div class="interview-content">
+                    <strong>Stripe</strong>
+                    <span>Software Engineer</span>
+                    <small>Technical Round</small>
+                  </div>
+
+                  <div class="interview-date">
+                    <strong>Nov 12</strong>
+                    <span>11:00 AM</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ==================================================
+                 WEEKLY ANALYTICS
+            ================================================== -->
+
+            <section
+              class="analytics-panel panel"
+              id="analytics"
+              aria-labelledby="analyticsTitle"
+            >
+              <div class="panel-heading">
+                <div class="panel-heading-title">
+                  <i data-lucide="chart-no-axes-column-increasing"></i>
+                  <h2 id="analyticsTitle">Weekly Applications</h2>
+                </div>
+
+                <span class="panel-tag">Demo Chart</span>
+              </div>
+
+              <div
+                class="chart-container"
+                role="img"
+                aria-label="Illustrative six-week application activity chart"
+              >
+                <div class="chart-grid" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+
+                <div class="chart-bars" aria-hidden="true">
+                  <div class="chart-bar-group">
+                    <div class="chart-bar" style="--bar-height: 25%"></div>
+                    <span>W1</span>
+                  </div>
+
+                  <div class="chart-bar-group">
+                    <div class="chart-bar" style="--bar-height: 40%"></div>
+                    <span>W2</span>
+                  </div>
+
+                  <div class="chart-bar-group">
+                    <div class="chart-bar" style="--bar-height: 55%"></div>
+                    <span>W3</span>
+                  </div>
+
+                  <div class="chart-bar-group">
+                    <div class="chart-bar" style="--bar-height: 65%"></div>
+                    <span>W4</span>
+                  </div>
+
+                  <div class="chart-bar-group">
+                    <div class="chart-bar" style="--bar-height: 75%"></div>
+                    <span>W5</span>
+                  </div>
+
+                  <div class="chart-bar-group">
+                    <div class="chart-bar" style="--bar-height: 90%"></div>
+                    <span>W6</span>
+                  </div>
+                </div>
+              </div>
+
+              <p class="chart-description">
+                Illustrative activity overview for the last six weeks.
+              </p>
+            </section>
+
+            <!-- ==================================================
+                 RECENT ACTIVITY
+            ================================================== -->
+
+            <section
+              class="activity-panel panel"
+              aria-labelledby="activityTitle"
+            >
+              <div class="panel-heading">
+                <div class="panel-heading-title">
+                  <i data-lucide="zap"></i>
+                  <h2 id="activityTitle">Recent Activity</h2>
+                </div>
+
+                <span class="panel-tag">Preview</span>
+              </div>
+
+              <div class="activity-list">
+                <div class="activity-item">
+                  <div class="activity-icon activity-offer">
+                    <i data-lucide="trophy"></i>
+                  </div>
+
+                  <div class="activity-content">
+                    <strong>Offer received from Netflix</strong>
+                    <span>Web Developer · Oct 25, 2026</span>
+                  </div>
+                </div>
+
+                <div class="activity-item">
+                  <div class="activity-icon activity-interview">
+                    <i data-lucide="calendar-check"></i>
+                  </div>
+
+                  <div class="activity-content">
+                    <strong>Interview stage at Google</strong>
+                    <span>Frontend Engineer · Nov 1, 2026</span>
+                  </div>
+                </div>
+
+                <div class="activity-item">
+                  <div class="activity-icon activity-applied">
+                    <i data-lucide="send"></i>
+                  </div>
+
+                  <div class="activity-content">
+                    <strong>Applied to OpenAI</strong>
+                    <span>Junior JavaScript Developer · Nov 2, 2026</span>
+                  </div>
+                </div>
+
+                <div class="activity-item">
+                  <div class="activity-icon activity-rejected">
+                    <i data-lucide="x"></i>
+                  </div>
+
+                  <div class="activity-content">
+                    <strong>Application closed at Microsoft</strong>
+                    <span>Junior Frontend Developer · Oct 20, 2026</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </aside>
+        </div>
+
+        <!-- ======================================================
+             MAIN FOOTER
+        ====================================================== -->
+
+        <footer class="main-footer">
+          <p>Job Application Tracker PRO</p>
+
+          <span> Built with HTML, CSS & Vanilla JavaScript </span>
+        </footer>
+      </main>
+    </div>
+
+    <!-- ======================================================
+         ADD / EDIT APPLICATION MODAL
+    ====================================================== -->
+
+    <dialog
+      class="application-modal"
+      id="applicationModal"
+      aria-labelledby="applicationModalTitle"
+    >
+      <div class="modal-container">
+        <!-- MODAL HEADER -->
+
+        <div class="modal-header">
+          <div class="modal-heading">
+            <div class="modal-heading-icon">
+              <i data-lucide="briefcase-business"></i>
+            </div>
+
+            <div>
+              <h2 id="applicationModalTitle">Add Application</h2>
+
+              <p>Keep track of your next career opportunity.</p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            class="modal-close-btn"
+            id="closeApplicationModalBtn"
+            aria-label="Close application form"
+          >
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+
+        <!-- APPLICATION FORM -->
+
+        <form class="application-form" id="applicationForm">
+          <input type="hidden" id="applicationId" name="applicationId" />
+
+          <div class="form-grid">
+            <!-- COMPANY -->
+
+            <div class="form-group">
+              <label for="companyInput">
+                Company Name <span class="required">*</span>
+              </label>
+
+              <div class="input-wrapper">
+                <i data-lucide="building-2"></i>
+
+                <input
+                  type="text"
+                  id="companyInput"
+                  name="company"
+                  placeholder="e.g. Google"
+                  maxlength="80"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- POSITION -->
+
+            <div class="form-group">
+              <label for="positionInput">
+                Job Position <span class="required">*</span>
+              </label>
+
+              <div class="input-wrapper">
+                <i data-lucide="briefcase-business"></i>
+
+                <input
+                  type="text"
+                  id="positionInput"
+                  name="position"
+                  placeholder="e.g. Junior Frontend Developer"
+                  maxlength="120"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- LOCATION -->
+
+            <div class="form-group">
+              <label for="locationInput">Location</label>
+
+              <div class="input-wrapper">
+                <i data-lucide="map-pin"></i>
+
+                <input
+                  type="text"
+                  id="locationInput"
+                  name="location"
+                  placeholder="e.g. Remote / Bratislava"
+                  maxlength="100"
+                />
+              </div>
+            </div>
+
+            <!-- DATE -->
+
+            <div class="form-group">
+              <label for="dateInput">
+                Application Date <span class="required">*</span>
+              </label>
+
+              <div class="input-wrapper">
+                <i data-lucide="calendar-days"></i>
+
+                <input type="date" id="dateInput" name="date" required />
+              </div>
+            </div>
+
+            <!-- STATUS -->
+
+            <div class="form-group">
+              <label for="statusInput">
+                Application Status <span class="required">*</span>
+              </label>
+
+              <select id="statusInput" name="status" required>
+                <option value="applied">Applied</option>
+                <option value="interview">Interview</option>
+                <option value="offer">Offer</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </div>
+
+            <!-- PRIORITY -->
+
+            <div class="form-group">
+              <label for="priorityInput">
+                Priority <span class="required">*</span>
+              </label>
+
+              <select id="priorityInput" name="priority" required>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+
+            <!-- JOB URL -->
+
+            <div class="form-group form-group-full">
+              <label for="urlInput">Job Posting URL</label>
+
+              <div class="input-wrapper">
+                <i data-lucide="link"></i>
+
+                <input
+                  type="url"
+                  id="urlInput"
+                  name="url"
+                  placeholder="https://example.com/job-posting"
+                />
+              </div>
+            </div>
+
+            <!-- NOTES -->
+
+            <div class="form-group form-group-full">
+              <label for="notesInput">Notes</label>
+
+              <textarea
+                id="notesInput"
+                name="notes"
+                rows="4"
+                maxlength="1000"
+                placeholder="Add important details about this opportunity..."
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- FORM ACTIONS -->
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn btn-outline"
+              id="cancelApplicationBtn"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="saveApplicationBtn"
+            >
+              <i data-lucide="check"></i>
+              <span id="saveApplicationText">Save Application</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+  </body>
+</html>
