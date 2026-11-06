@@ -6,7 +6,7 @@
 
 Built with **HTML • CSS • Vanilla JavaScript** — no frontend framework required.
 
-**[🚀 Live Demo]()** · **[📂 Source Code](https://github.com/JohnyIsBackk/job-application-tracker-pro)**
+**[🚀 Live Demo](https://johnyisbackk.github.io/js-job-application-tracker-pro/)**
 
 </div>
 
@@ -14,7 +14,7 @@ Built with **HTML • CSS • Vanilla JavaScript** — no frontend framework req
 
 ## 🖼️ Preview
 
-![Job Application Tracker PRO — promotional preview](./license)
+![Job Application Tracker PRO — promotional preview](./preview.png)
 
 > **Preview note:** This graphic is an illustrative project cover, not an exact screenshot. For the most accurate portfolio preview, replace `assets/preview.png` with a screenshot of the finished application.
 
